@@ -59,46 +59,15 @@ class mylora(LoRa):
         
         self.sendWearInfo(message)
         
-        #call GatewayDeviceService
-        #
-
-        #mens=mens[2:-1]
-        #dataList = mens.split('/')
-        #dataList.insert(0, line)
-        
-        #f = open('gatewayCode.txt', mode = 'r')
-        #line = f.readline()
-        #print("code : ", line)
-        #print(mens)
-        #mens=mens[2:-1]
-        #dataList = mens.split('/')
-        #dataList.insert(0, line)
-        #print(dataList)
-        #keyList = ['gatewayCode', 'safeHatCode', 'cardNumber', 'latitude', 'longitude', 'time', 'isWear']
-        
-        #print(keyList)
-        #print(dataList)
-        
-        #dataJson = dict(zip(keyList, dataList))
-        #dataJson = json.dumps(dataJson)
-        
-        #print(type(dataJson))
-        #req = requests.post("http://ec2-15-164-67-165.ap-northeast-2.compute.amazonaws.com//receive", json=dataJson).text
-        
         BOARD.led_off()
-        #if mens=="INF":
-        #    print("Received data request INF")
-        #    time.sleep(2)
-        #    print ("Send mens: DATA RASPBERRY PI")
-        #    self.write_payload([255, 255, 0, 0, 68, 65, 84, 65, 32, 82, 65, 83, 80, 66, 69, 82, 82, 89, 32, 80, 73, 0]) # Send DATA RASPBERRY PI
-        #    self.set_mode(MODE.TX)
+
         time.sleep(2)
         self.reset_ptr_rx()
         self.set_mode(MODE.RXCONT)
         
     def sendWearInfo(self, message):
         dataJson = message;
-        req = requests.post("http://ec2-15-164-67-165.ap-northeast-2.compute.amazonaws.com/common/receive", json=dataJson).text
+        req = requests.post("http://ec2-15-164-67-165.ap-northeast-2.compute.amazonaws.com/common/receive", data=dataJson).text
         print("MAPPER | send done.");
 
     def on_tx_done(self):
